@@ -23,7 +23,9 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
     @Override
     public void queryResultAsync(String scenarioId) {
         try {
+            //线程休眠10000ms
             Thread.sleep(10000);
+            //然后去执行数据查询获取场景任务执行结果
             queryResult(scenarioId);
         } catch (InterruptedException e) {
             log.error("日志->>>service:queryResultAsync->>>{}", e.getMessage());
@@ -33,30 +35,37 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
     public void queryResult(String scenarioId) {
         MsApiScenario msApiScenario = msApiScenarioResultMsgMapper.selectByScenarioId(scenarioId);
         if (ObjectUtils.isEmpty(msApiScenario)) {
-            log.debug("日志->>>service:queryResult->>>查询结果为空,不发送消息:{}", msApiScenario);
+            log.info("日志->>>service:queryResult->>>查询结果为空,不发送消息:{}", msApiScenario);
             return;
         }
+        //对象转为JSONObject,需要将对象先转为JSONString再转为JSONObject
         String msApiScenarioStr = JSONObject.toJSONString(msApiScenario);
         JSONObject msApiScenarioJson = JSONObject.parseObject(msApiScenarioStr);
+        //该key对应value过长且不需要,所以置为空
         msApiScenarioJson.put("scenarioDefinition", "");
 
         MsApiScenarioReport msApiScenarioReport = msApiScenarioResultMsgMapper.selectByReportId((String) msApiScenarioJson.get("reportId"));
+        if (ObjectUtils.isEmpty(msApiScenarioReport)) {
+            log.info("日志->>>service:queryResult->>>查询结果为空,不发送消息:{}", msApiScenarioReport);
+            return;
+        }
         String msApiScenarioReportStr = JSONObject.toJSONString(msApiScenarioReport);
         JSONObject msApiScenarioReportJson = JSONObject.parseObject(msApiScenarioReportStr);
 
+        //msApiScenarioReport和msApiScenarioReportStr有重复key值,为了避免覆盖,所以将msApiScenarioReportJson中重复key值重命名
         String[] keys = new String[]{"id", "name", "versionId", "projectId", "status", "createTime", "updateTime"};
+        //调用mapTool方法处理
         mapTool(msApiScenarioReportJson, keys);
 
+        //将msApiScenarioReport和msApiScenarioReportStr合并
         HashMap<String, Object> newMap = new HashMap<>();
         newMap.putAll(msApiScenarioJson);
         newMap.putAll(msApiScenarioReportJson);
+        log.info("日志->>>service:queryResult->>>合并结果:{}", newMap);
 
-
-        //钉钉机器人发送消息
+        //将新Map对象交给DingMsgSend处理并发送
         DingMsgSend.sendMsg(newMap);
-        log.debug("日志->>>service:queryResult->>>查询结果:{}", newMap);
     }
-
 
     public void mapTool(Map<String, Object> map, String[] keys) {
         for (String key : keys) {
@@ -65,5 +74,4 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
             map.put("report" + key, value);
         }
     }
-
 }

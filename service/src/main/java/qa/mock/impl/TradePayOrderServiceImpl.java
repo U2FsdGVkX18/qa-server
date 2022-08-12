@@ -2,6 +2,7 @@ package qa.mock.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -40,7 +41,7 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
 
             //发送消息
             rabbitTemplate.convertAndSend("pay.message.exchange", "payMessage", message);
-            log.debug("日志->>>service:execute->>>mq消息发送成功,uuid:{}", uuid);
+            log.info("日志->>>service:execute->>>mq消息发送成功,uuid:{}", uuid);
         } catch (AmqpException e) {
             log.error("日志->>>service:execute->>>mq消息发送失败:{}", e.getMessage());
         }
@@ -55,7 +56,7 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
         tradePayOrder.setStatus((Integer) hashMap.get("status"));
 
         int isSuccess = tradePayOrderMapper.insert(tradePayOrder);
-        log.debug("日志->>>service:execute->>>insert是否插入成功:{}", isSuccess);
+        log.info("日志->>>service:execute->>>insert是否插入成功:{}", isSuccess);
         if (isSuccess > 0) {
             return hashMap;
         }
@@ -65,11 +66,11 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
     @Override
     public Map<String, Integer> queryStatus(String qaOutTradeNo) {
         TradePayOrder tradePayOrder = tradePayOrderMapper.selectByUUID(qaOutTradeNo);
-        if (tradePayOrder == null) {
-            log.debug("日志->>>service:queryStatus->>>查询结果为空");
+        if (tradePayOrder == null || ObjectUtils.isEmpty(tradePayOrder)) {
+            log.info("日志->>>service:queryStatus->>>查询结果为空:{}", tradePayOrder);
             return null;
         }
-        log.debug("日志->>>service:queryStatus->>>查询结果为:{}", tradePayOrder);
+        log.info("日志->>>service:queryStatus->>>查询结果为:{}", tradePayOrder);
         HashMap<String, Integer> hashMap = new HashMap<>();
         hashMap.put("status", tradePayOrder.getStatus());
         return hashMap;

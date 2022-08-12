@@ -38,7 +38,7 @@ public class DingMsgSend {
         request.setAt(at);
         try {
             OapiRobotSendResponse response = client.execute(request);
-            log.debug("日志->>>DingMsgSend:sendMsg->>>成功:{}", response.isSuccess());
+            log.info("日志->>>DingMsgSend:sendMsg->>>成功:{}", response.isSuccess());
         } catch (ApiException e) {
             log.error("日志->>>DingMsgSend:sendMsg->>>失败:{}", e.getMessage());
         }

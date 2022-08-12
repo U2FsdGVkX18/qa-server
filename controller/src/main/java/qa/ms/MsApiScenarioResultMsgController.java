@@ -27,12 +27,13 @@ public class MsApiScenarioResultMsgController {
      */
     @GetMapping("/sendResultMsg")
     public CommonResult<String> sendResultMsg(@RequestParam String scenarioId) {
-        log.debug("日志->>>controller:payOrderQuery->>>接口接收到的参数:{}", scenarioId);
+        log.info("日志->>>controller:payOrderQuery->>>接口接收到的参数:{}", scenarioId);
         try {
+            //调用service层异步任务后,不用等待;接口立即返回
             msApiScenarioResultMsgService.queryResultAsync(scenarioId);
             return CommonResult.success("success");
         } catch (Exception e) {
-            log.debug("日志->>>controller:payOrderQuery->>>调用service失败:{}", e.getMessage());
+            log.error("日志->>>controller:payOrderQuery->>>调用service失败:{}", e.getMessage());
             return CommonResult.failed("fail");
         }
     }
