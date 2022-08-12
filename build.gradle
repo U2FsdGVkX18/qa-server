@@ -70,6 +70,7 @@ allprojects {
         implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
         //钉钉SDK
         implementation('com.aliyun:alibaba-dingtalk-service-sdk:2.0.0') {
+            //log4j包冲突,排除掉
             exclude group: "log4j", module: "log4j"
         }
     }

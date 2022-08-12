@@ -18,7 +18,7 @@ qa - server
 | --mapper		//数据持久层,数据操作,面向数据库
 | --mq			//消息中间件
 | --service		//业务层,所有业务代码
-| --build.gradle 			//依赖配置文件
+| --build.gradle 	//依赖配置文件
 ```
 
 #### 安装教程

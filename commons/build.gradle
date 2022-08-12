@@ -2,7 +2,6 @@ plugins {
 }
 
 dependencies {
-
 }
 
 test {
