@@ -1,0 +1,29 @@
+<?qa.xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qa.mapper.ms.MsApiScenarioResultMsgMapper">
+
+    <!--    <resultMap id="resultMap" type="qa.MsApiScenario">-->
+    <!--        <result column="id" property="id"/>-->
+    <!--        <result column="return_url" property="returnUrl"/>-->
+    <!--        <result column="notify_url" property="notifyUrl"/>-->
+    <!--        <result column="total_free" property="totalFree"/>-->
+    <!--        <result column="out_trade_no" property="outTradeNo"/>-->
+    <!--        <result column="time_start" property="timeStart"/>-->
+    <!--        <result column="time_expire" property="timeExpire"/>-->
+    <!--        <result column="qa_out_trade_no" property="qaOutTradeNo"/>-->
+    <!--        <result column="status" property="status"/>-->
+    <!--    </resultMap>-->
+
+    <select id="selectByScenarioId" parameterType="string" resultType="qa.ms.MsApiScenario">
+        SELECT *
+        FROM api_scenario
+        WHERE id = #{scenarioId}
+    </select>
+
+    <select id="selectByReportId" parameterType="string" resultType="qa.ms.MsApiScenarioReport">
+        SELECT *
+        FROM api_scenario_report
+        WHERE id = #{reportId}
+    </select>
+
+</mapper>

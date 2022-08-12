@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qa.mapper.mock.TradePayOrderMapper">
+
+    <resultMap id="resultMap" type="qa.mock.TradePayOrder">
+        <result column="id" property="id"/>
+        <result column="return_url" property="returnUrl"/>
+        <result column="notify_url" property="notifyUrl"/>
+        <result column="total_free" property="totalFree"/>
+        <result column="out_trade_no" property="outTradeNo"/>
+        <result column="time_start" property="timeStart"/>
+        <result column="time_expire" property="timeExpire"/>
+        <result column="qa_out_trade_no" property="qaOutTradeNo"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="qa.mock.TradePayOrder">
+        INSERT INTO trade_pay_order
+        (`return_url`, `notify_url`, `total_free`, `out_trade_no`, time_start, time_expire, `qa_out_trade_no`, status)
+        VALUES (#{returnUrl}, #{notifyUrl}, #{totalFree}, #{outTradeNo}, #{timeStart}, #{timeExpire}, #{qaOutTradeNo},
+                #{status})
+    </insert>
+
+    <select id="selectByUUID" parameterType="string" resultMap="resultMap">
+        SELECT *
+        FROM trade_pay_order
+        WHERE qa_out_trade_no = #{qaOutTradeNo}
+    </select>
+
+</mapper>

@@ -1,0 +1,10 @@
+plugins {
+}
+
+dependencies {
+    implementation project(":domain")
+}
+
+test {
+    useJUnitPlatform()
+}

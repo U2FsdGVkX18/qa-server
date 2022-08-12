@@ -1,0 +1,80 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+//配置统一的信息,包括root项目
+allprojects {
+    //统一引入java插件和版本指定
+    apply plugin: "java"
+    //springboot项目打jar包
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+    sourceCompatibility = "11"
+    //统一配置公共属性
+    group = 'com.bbt'
+    version = '0.0.1-SNAPSHOT'
+
+    //指定main方法所在的class
+    springBoot {
+        mainClass = "qa.QaServerRun"
+    }
+
+    //配置公用的资源库
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        mavenLocal()
+        mavenCentral()
+    }
+
+    //引入依赖
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        //lombok插件
+        implementation 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        //mysql+druid
+        implementation 'mysql:mysql-connector-java'
+        implementation 'com.alibaba:druid-spring-boot-starter:1.2.9'
+        //redis
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        //MP
+        implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
+        implementation 'com.baomidou:mybatis-plus-generator:3.5.2'
+        implementation 'org.apache.velocity:velocity-engine-core:2.3'
+        //request
+        implementation 'org.apache.httpcomponents:httpcore'
+        implementation 'org.apache.httpcomponents:httpclient'
+        implementation 'org.apache.commons:commons-text:1.9'
+        //造测试数据工具
+        implementation 'net.datafaker:datafaker:1.5.0'
+        //fastjson
+        implementation 'com.alibaba:fastjson:2.0.7'
+        //nanoid
+        implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
+        //hutool
+        implementation 'cn.hutool:hutool-all:5.7.14'
+        //集合工具类
+        implementation 'org.apache.commons:commons-collections4:4.4'
+
+        implementation 'com.google.guava:guava:27.0-jre'
+        //springCloud
+        implementation 'org.springframework.cloud:spring-cloud-context:3.1.3'
+        //AMQP依赖包含rabbitmq
+        implementation 'org.springframework.boot:spring-boot-starter-amqp'
+        //jackson
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+        //钉钉SDK
+        implementation('com.aliyun:alibaba-dingtalk-service-sdk:2.0.0') {
+            exclude group: "log4j", module: "log4j"
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
