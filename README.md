@@ -6,15 +6,18 @@
 
 #### 软件架构
 
-java11 + springboot2.7.0 + gradle + mybatis-plus...
+java11 + springboot2.7.0 + gradle + mybatis-plus
 
 #### 目录说明
 
 ```javascript
 qa - server
-| --qa - server - mock  		//mock服务
-| --qa - server - scenes 		//场景构造服务
-| --qa - server - xxx			//其他服务需要创建模块
+| --commons  	        //通用(组件,配置类,工具类)
+| --controller 	        //web层,启动类入口
+| --domain		//实体类
+| --mapper		//数据持久层,数据操作,面向数据库
+| --mq			//消息中间件
+| --service		//业务层,所有业务代码
 | --build.gradle 			//依赖配置文件
 ```
 
@@ -39,5 +42,4 @@ qa - server
 
 #### 注意
 
-1. git push 前必须先进行 git pull
-2. 禁止直接提交到master分支
+1. 禁止直接提交到master分支
