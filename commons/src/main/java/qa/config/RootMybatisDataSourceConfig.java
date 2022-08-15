@@ -26,7 +26,7 @@ import javax.sql.DataSource;
  * 因为mock服务使用的是qa-server主数据库,所以这里额外配置扫描mapper.mock包
  */
 @Configuration
-@MapperScan(basePackages = {"qa.mapper.mock"}, sqlSessionTemplateRef = "rootSqlSessionTemplate", sqlSessionFactoryRef = "rootSqlSessionFactory")
+@MapperScan(basePackages = {"qa.mapper.root", "qa.mapper.mock"}, sqlSessionTemplateRef = "rootSqlSessionTemplate", sqlSessionFactoryRef = "rootSqlSessionFactory")
 public class RootMybatisDataSourceConfig {
 
     /**

@@ -25,7 +25,7 @@ public class RabbitMqListener {
 
     @RabbitHandler
     @RabbitListener(queues = "pay.message.dlx.queue")
-    public void listenPayMessageDlxQueue(Message message, Channel channel, String msg) throws IOException {
+    public void listenPayMessageDlxQueue(Message message, Channel channel, String msg) {
         long deliveryTag = message.getMessageProperties().getDeliveryTag();
         log.info("日志->>>RabbitMqListener->>>message : [{}]", message);
         try {

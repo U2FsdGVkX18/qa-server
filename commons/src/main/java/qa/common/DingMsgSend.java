@@ -15,25 +15,36 @@ import java.util.Map;
 @Slf4j
 public class DingMsgSend {
 
+    /**
+     * 测试团队群-接口自动化机器人-webhook地址
+     */
     private static final String robotWebhook =
             "https://oapi.dingtalk.com/robot/send?access_token=5cf5de5a92793336d212fdada7937a1cf942efc3c46553c5b0efcc383b238396";
 
+    /**
+     * 发送消息主体
+     *
+     * @param msgMap 消息主体
+     */
     public static void sendMsg(Map<String, Object> msgMap) {
+        //获取client
         DingTalkClient client = createClient();
+        //新建请求对象
         OapiRobotSendRequest request = new OapiRobotSendRequest();
+        //指定发送消息类型
         request.setMsgtype("text");
         OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
         //获取消息体
         String msg = msgBody(msgMap);
-        //将消息提放入content
+        //将消息体放入content
         text.setContent(msg);
         request.setText(text);
+        //设置消息在群中需要@对象
         OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
-
         //at.setAtMobiles(Arrays.asList("132xxxxxxxx"));
         //isAtAll类型如果不为Boolean，请升级至最新SDK
+        //IsAtAll为true:@所有人,IsAtAll为false:不@人
         at.setIsAtAll(false);
-
         //at.setAtUserIds(Arrays.asList("109929", "32099"));
         request.setAt(at);
         try {
@@ -44,7 +55,13 @@ public class DingMsgSend {
         }
     }
 
-    public static String msgBody(Map<String, Object> msgMap) {
+    /**
+     * 消息主体构建-格式化
+     *
+     * @param msgMap 消息集合
+     * @return String
+     */
+    private static String msgBody(Map<String, Object> msgMap) {
         String createTime = TimeConvertTool.getDateTime13((Long) msgMap.get("createTime"));
         String updateTime = TimeConvertTool.getDateTime13((Long) msgMap.get("updateTime"));
         String reportcreateTime = TimeConvertTool.getDateTime13((Long) msgMap.get("reportcreateTime"));
@@ -76,7 +93,12 @@ public class DingMsgSend {
                 ;
     }
 
-    public static DingTalkClient createClient() {
+    /**
+     * 新建钉钉消息客户端
+     *
+     * @return DingTalkClient
+     */
+    private static DingTalkClient createClient() {
         return new DefaultDingTalkClient(robotWebhook);
     }
 }

@@ -52,7 +52,7 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
         String msApiScenarioReportStr = JSONObject.toJSONString(msApiScenarioReport);
         JSONObject msApiScenarioReportJson = JSONObject.parseObject(msApiScenarioReportStr);
 
-        //msApiScenarioReport和msApiScenarioReportStr有重复key值,为了避免覆盖,所以将msApiScenarioReportJson中重复key值重命名
+        //msApiScenarioJson和msApiScenarioReportJson有重复key值,为了避免合并后相同的key值覆盖,所以将msApiScenarioReportJson中有重复的key值重命名
         String[] keys = new String[]{"id", "name", "versionId", "projectId", "status", "createTime", "updateTime"};
         //调用mapTool方法处理
         mapTool(msApiScenarioReportJson, keys);
@@ -63,10 +63,16 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
         newMap.putAll(msApiScenarioReportJson);
         log.info("日志->>>service:queryResult->>>合并结果:{}", newMap);
 
-        //将新Map对象交给DingMsgSend处理并发送
+        //将新Map对象(消息集合)交给DingMsgSend处理并发送
         DingMsgSend.sendMsg(newMap);
     }
 
+    /**
+     * 集合工具,将指定集合中指定的key重命名
+     *
+     * @param map  指定集合
+     * @param keys 指定key
+     */
     public void mapTool(Map<String, Object> map, String[] keys) {
         for (String key : keys) {
             Object value = map.get(key);
