@@ -32,8 +32,7 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
     public Map<String, Object> execute(TradePayOrder tradePayOrder) {
         String uuidStr = UUID.randomUUID().toString();
         String uuid = uuidStr.replace("-", "");
-
-
+        
         //创建消息对象
         Message message = RabbitMqCreateMsg.CreateMsg(uuid, "0");
 
@@ -66,7 +65,7 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
     @Override
     public Map<String, Integer> queryStatus(String qaOutTradeNo) {
         TradePayOrder tradePayOrder = tradePayOrderMapper.selectByUUID(qaOutTradeNo);
-        if (tradePayOrder == null || ObjectUtils.isEmpty(tradePayOrder)) {
+        if (ObjectUtils.isEmpty(tradePayOrder)) {
             log.info("日志->>>service:queryStatus->>>查询结果为空:{}", tradePayOrder);
             return null;
         }
