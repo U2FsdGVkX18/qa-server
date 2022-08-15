@@ -4,6 +4,13 @@ plugins {
     id 'java'
 }
 
+jar {
+    archiveFileName = 'qa-server.jar'
+    manifest {
+        attributes 'Main-Class': 'qa.QaServerRun'
+    }
+}
+
 //配置统一的信息,包括root项目
 allprojects {
     //统一引入java插件和版本指定

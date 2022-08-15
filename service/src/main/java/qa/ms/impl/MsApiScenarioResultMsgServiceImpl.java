@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import qa.common.DingMsgSend;
 import qa.mapper.ms.MsApiScenarioResultMsgMapper;
 import qa.ms.MsApiScenario;
@@ -32,6 +33,7 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void queryResult(String scenarioId) {
         MsApiScenario msApiScenario = msApiScenarioResultMsgMapper.selectByScenarioId(scenarioId);
         if (ObjectUtils.isEmpty(msApiScenario)) {

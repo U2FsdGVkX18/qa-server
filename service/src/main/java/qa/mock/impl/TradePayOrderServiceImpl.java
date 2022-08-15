@@ -7,6 +7,8 @@ import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import qa.common.UUIDTool;
 import qa.mapper.mock.TradePayOrderMapper;
 import qa.mock.RabbitMqCreateMsg;
 import qa.mock.TradePayOrder;
@@ -16,7 +18,6 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -29,10 +30,10 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
     private RabbitTemplate rabbitTemplate;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> execute(TradePayOrder tradePayOrder) {
-        String uuidStr = UUID.randomUUID().toString();
-        String uuid = uuidStr.replace("-", "");
-        
+        String uuid = UUIDTool.generateStrWithoutHyphen();
+
         //创建消息对象
         Message message = RabbitMqCreateMsg.CreateMsg(uuid, "0");
 
@@ -63,6 +64,7 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Integer> queryStatus(String qaOutTradeNo) {
         TradePayOrder tradePayOrder = tradePayOrderMapper.selectByUUID(qaOutTradeNo);
         if (ObjectUtils.isEmpty(tradePayOrder)) {

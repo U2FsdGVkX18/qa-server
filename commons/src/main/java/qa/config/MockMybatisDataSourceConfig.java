@@ -13,30 +13,28 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
 /**
- * root database config
+ * mock database config
  * qa-server主数据源配置
- * 注:root服务使用的是qa-server主数据库,和mock服务使用的是同一个
+ * 注:mock服务使用的是qa-server主数据库,和root服务使用的是同一个
  */
 @Configuration
-@MapperScan(basePackages = {"qa.mapper.root"}, sqlSessionTemplateRef = "rootSqlSessionTemplate", sqlSessionFactoryRef = "rootSqlSessionFactory")
-public class RootMybatisDataSourceConfig {
+@MapperScan(basePackages = {"qa.mapper.mock"}, sqlSessionTemplateRef = "mockSqlSessionTemplate", sqlSessionFactoryRef = "mockSqlSessionFactory")
+public class MockMybatisDataSourceConfig {
 
     /**
      * 从配置文件获取配置信息创建数据源
      *
      * @return DataSource
      */
-    @Bean("rootDataSource")
-    @Primary
-    @ConfigurationProperties(prefix = "spring.datasource.root")
-    public DataSource rootDataSource() {
+    @Bean("mockDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.mock")
+    public DataSource mockDataSource() {
         return new DruidDataSource();
     }
 
@@ -47,9 +45,8 @@ public class RootMybatisDataSourceConfig {
      * @return SqlSessionFactory
      * @throws Exception 异常
      */
-    @Bean("rootSqlSessionFactory")
-    @Primary
-    public SqlSessionFactory rootSqlSessionFactory(@Qualifier("rootDataSource") DataSource dataSource) throws Exception {
+    @Bean("mockSqlSessionFactory")
+    public SqlSessionFactory mockSqlSessionFactory(@Qualifier("mockDataSource") DataSource dataSource) throws Exception {
         MybatisSqlSessionFactoryBean mybatisSqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
 
         MybatisConfiguration mybatisConfiguration = new MybatisConfiguration();
@@ -60,7 +57,7 @@ public class RootMybatisDataSourceConfig {
         mybatisSqlSessionFactoryBean.setConfiguration(mybatisConfiguration);
         //getResources方法表示resources路径,*表示所有
         mybatisSqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().
-                getResources("classpath*:mapper/root/*.xml"));
+                getResources("classpath*:mapper/mock/*.xml"));
         mybatisSqlSessionFactoryBean.setGlobalConfig(new GlobalConfig().setBanner(false));
 
         return mybatisSqlSessionFactoryBean.getObject();
@@ -72,9 +69,8 @@ public class RootMybatisDataSourceConfig {
      * @param sqlSessionFactory 工厂
      * @return SqlSessionTemplate
      */
-    @Bean("rootSqlSessionTemplate")
-    @Primary
-    public SqlSessionTemplate rootSqlSessionTemplate(@Qualifier("rootSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+    @Bean("mockSqlSessionTemplate")
+    public SqlSessionTemplate mockSqlSessionTemplate(@Qualifier("mockSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
@@ -84,9 +80,8 @@ public class RootMybatisDataSourceConfig {
      * @param dataSource 数据源
      * @return DataSourceTransactionManager
      */
-    @Bean("rootTransactionManager")
-    @Primary
-    public DataSourceTransactionManager rootTransactionManager(@Qualifier("rootDataSource") DataSource dataSource) {
+    @Bean("mockTransactionManager")
+    public DataSourceTransactionManager mockTransactionManager(@Qualifier("mockDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 }

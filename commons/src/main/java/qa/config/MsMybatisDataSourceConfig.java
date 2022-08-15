@@ -57,7 +57,7 @@ public class MsMybatisDataSourceConfig {
         mybatisSqlSessionFactoryBean.setConfiguration(mybatisConfiguration);
         //getResources方法表示resources路径,*表示所有
         mybatisSqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().
-                getResources("classpath*:mapper/*.xml"));
+                getResources("classpath*:mapper/ms/*.xml"));
         mybatisSqlSessionFactoryBean.setGlobalConfig(new GlobalConfig().setBanner(false));
 
         return mybatisSqlSessionFactoryBean.getObject();

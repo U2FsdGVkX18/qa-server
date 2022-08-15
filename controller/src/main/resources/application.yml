@@ -2,7 +2,7 @@ server:
   port: 9000 #本服务启动端口
 logging:
   level:
-    root: info #打印日志等级
+    root: debug #打印日志等级
 spring:
   application:
     name: qa-server #应用名称
@@ -37,3 +37,4 @@ spring:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true   #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #
