@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Map;
 
 /**
- * 钉钉机器人发送消息工具
+ * 封装钉钉机器人发送消息工具
  */
 @Slf4j
 public class DingMsgSend {
@@ -27,8 +27,6 @@ public class DingMsgSend {
      * @param msgMap 消息主体
      */
     public static void sendMsg(Map<String, Object> msgMap) {
-        //获取client
-        DingTalkClient client = createClient();
         //新建请求对象
         OapiRobotSendRequest request = new OapiRobotSendRequest();
         //指定发送消息类型
@@ -48,7 +46,7 @@ public class DingMsgSend {
         //at.setAtUserIds(Arrays.asList("109929", "32099"));
         request.setAt(at);
         try {
-            OapiRobotSendResponse response = client.execute(request);
+            OapiRobotSendResponse response = createClient().execute(request);
             log.info("日志->>>DingMsgSend:sendMsg->>>成功:{}", response.isSuccess());
         } catch (ApiException e) {
             log.error("日志->>>DingMsgSend:sendMsg->>>失败:{}", e.getMessage());

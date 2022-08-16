@@ -4,6 +4,9 @@ import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 定义队列和交换机并创建绑定关系
+ */
 @Configuration
 public class RabbitMqDeclareConfig {
 
@@ -41,7 +44,10 @@ public class RabbitMqDeclareConfig {
      */
     @Bean
     public Binding payMessageBinding() {
-        return BindingBuilder.bind(payMessageQueue()).to(payMessageExchange()).with("payMessage");
+        return BindingBuilder
+                .bind(payMessageQueue())
+                .to(payMessageExchange())
+                .with("payMessage");
     }
 
     /**
@@ -67,7 +73,10 @@ public class RabbitMqDeclareConfig {
      */
     @Bean
     public Binding payMessageDlxBinding() {
-        return BindingBuilder.bind(payMessageQueueDlx()).to(payMessageExchangeDlx()).with("payMessageDlx");
+        return BindingBuilder
+                .bind(payMessageQueueDlx())
+                .to(payMessageExchangeDlx())
+                .with("payMessageDlx");
     }
 
     /**

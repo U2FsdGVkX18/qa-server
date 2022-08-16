@@ -3,7 +3,7 @@ package qa.common;
 import java.text.SimpleDateFormat;
 
 /**
- * 时间转换工具
+ * 封装时间转换工具
  */
 public class TimeConvertTool {
 

@@ -4,13 +4,6 @@ plugins {
     id 'java'
 }
 
-jar {
-    archiveFileName = 'qa-server.jar'
-    manifest {
-        attributes 'Main-Class': 'qa.QaServerRun'
-    }
-}
-
 //配置统一的信息,包括root项目
 allprojects {
     //统一引入java插件和版本指定
@@ -61,20 +54,14 @@ allprojects {
         implementation 'net.datafaker:datafaker:1.5.0'
         //fastjson
         implementation 'com.alibaba:fastjson:2.0.7'
-        //nanoid
-        implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
         //hutool
         implementation 'cn.hutool:hutool-all:5.7.14'
         //集合工具类
         implementation 'org.apache.commons:commons-collections4:4.4'
-
-        implementation 'com.google.guava:guava:27.0-jre'
         //springCloud
         implementation 'org.springframework.cloud:spring-cloud-context:3.1.3'
         //AMQP依赖包含rabbitmq
         implementation 'org.springframework.boot:spring-boot-starter-amqp'
-        //jackson
-        implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
         //钉钉SDK
         implementation('com.aliyun:alibaba-dingtalk-service-sdk:2.0.0') {
             //log4j包冲突,排除掉

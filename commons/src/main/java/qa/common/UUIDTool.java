@@ -3,7 +3,7 @@ package qa.common;
 import java.util.UUID;
 
 /**
- * uuid工具类
+ * 封装uuid工具类
  */
 public class UUIDTool {
 
