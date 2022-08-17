@@ -1,0 +1,32 @@
+2022-08-17 18:15:02.129  INFO 82251 --- [main] qa.QaServerRun                           : Starting QaServerRun using Java 11.0.15.1 on lihongweideMacBook-Air.local with PID 82251 (/Users/lihongwei/Desktop/git/qa-server/controller/build/classes/java/main started by lihongwei in /Users/lihongwei/Desktop/git/qa-server)
+2022-08-17 18:15:02.131  INFO 82251 --- [main] qa.QaServerRun                           : No active profile set, falling back to 1 default profile: "default"
+2022-08-17 18:15:03.044  INFO 82251 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2022-08-17 18:15:03.046  INFO 82251 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-08-17 18:15:03.067  INFO 82251 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2022-08-17 18:15:03.203  WARN 82251 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2022-08-17 18:15:03.208  WARN 82251 --- [main] o.m.s.mapper.ClassPathMapperScanner      : Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2022-08-17 18:15:03.210  WARN 82251 --- [main] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[qa.mapper.root]' package. Please check your configuration.
+2022-08-17 18:15:03.286  INFO 82251 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=19e13f15-8584-30c9-a410-81a217172c3f
+2022-08-17 18:15:03.684  INFO 82251 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2022-08-17 18:15:03.696  INFO 82251 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-17 18:15:03.696  INFO 82251 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-08-17 18:15:03.811  INFO 82251 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-17 18:15:03.811  INFO 82251 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1627 ms
+2022-08-17 18:15:04.533  WARN 82251 --- [main] c.b.m.e.s.MybatisSqlSessionFactoryBean   : Property 'mapperLocations' was specified but matching resources are not found.
+2022-08-17 18:15:05.404  INFO 82251 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2022-08-17 18:15:05.407  INFO 82251 --- [main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [121.41.203.160:5672]
+2022-08-17 18:15:05.567  INFO 82251 --- [main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#73e4387:0/SimpleConnection@4fafd27e [delegate=amqp://guest@121.41.203.160:5672/, localPort= 63263]
+2022-08-17 18:15:05.808  INFO 82251 --- [main] qa.QaServerRun                           : Started QaServerRun in 4.258 seconds (JVM running for 5.009)
+2022-08-17 18:15:56.111  INFO 82251 --- [http-nio-9000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-17 18:15:56.113  INFO 82251 --- [http-nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-17 18:15:56.119  INFO 82251 --- [http-nio-9000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2022-08-17 18:15:56.181  INFO 82251 --- [http-nio-9000-exec-1] qa.ms.MsApiScenarioResultMsgController   : 日志->>>controller:payOrderQuery->>>接口接收到的参数:a07b4021-8c71-43a2-b1e2-3d0f3126e16
+2022-08-17 18:16:06.296  INFO 82251 --- [task-1] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2022-08-17 18:16:07.208  INFO 82251 --- [task-1] q.m.i.MsApiScenarioResultMsgServiceImpl  : 日志->>>service:queryResult->>>查询结果为空,不发送消息:null
+2022-08-17 18:16:37.261  INFO 82251 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2022-08-17 18:16:38.192  INFO 82251 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2022-08-17 18:16:39.277  INFO 82251 --- [SpringApplicationShutdownHook] o.s.a.r.l.SimpleMessageListenerContainer : Shutdown ignored - container is already stopped
+2022-08-17 18:16:39.279  INFO 82251 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...
+2022-08-17 18:16:39.279  INFO 82251 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closing ...
+2022-08-17 18:16:39.286  INFO 82251 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} closed
+2022-08-17 18:16:39.308  INFO 82251 --- [SpringApplicationShutdownHook] com.alibaba.druid.pool.DruidDataSource   : {dataSource-0} closing ...

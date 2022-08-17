@@ -18,5 +18,4 @@ public class RabbitMqCreateMsg {
                 .setExpiration(expirationTime)    //设置超时时间,单位:毫秒ms    (如果队列和消息都设置了超时时间 那么以时间较短的为准) 目前只设置了消息超时时间
                 .build();
     }
-
 }

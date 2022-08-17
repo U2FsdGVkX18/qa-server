@@ -34,12 +34,13 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
     public Map<String, Object> execute(TradePayOrder tradePayOrder) {
         //获取一个uuid
         String uuid = UUIDTool.generateStrWithoutHyphen();
+        //创建一个random对象
+        Random random = new Random();
 
         //组装map,用于响应
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("qaOutTradeNo", uuid);
 
-        Random random = new Random();
         hashMap.put("status", random.nextInt(2));
 
         //组装对象,用于插库
@@ -52,10 +53,10 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
         if (isSuccess > 0) {
             log.info("日志->>>service:execute->>>insert插入成功:{}", isSuccess);
 
-            //创建消息对象
+            //创建消息对象 uuid:发送的消息,消息过期时间
             Message message = RabbitMqCreateMsg.CreateMsg(uuid, "20000");
             try {
-                //发送消息
+                //发送消息 交换机,路由键,消息
                 rabbitTemplate.convertAndSend("pay.message.exchange", "payMessage", message);
                 log.info("日志->>>service:execute->>>mq消息发送成功,uuid:{}", uuid);
             } catch (AmqpException e) {

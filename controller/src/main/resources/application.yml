@@ -3,6 +3,8 @@ server:
 logging:
   level:
     root: info #打印日志等级
+  file:
+    name: ./logs/server.log
 spring:
   application:
     name: qa-server #应用名称
