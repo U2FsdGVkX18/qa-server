@@ -51,7 +51,7 @@ public class RabbitMqListener {
                 channel.basicReject(deliveryTag, false);
                 log.info("日志->>>RabbitMqListener->>>拒绝当前消息 : [{}]", msg);
                 //然后重新发送消息
-                Message newMessage = RabbitMqCreateMsg.CreateMsg(msg, "20000");
+                Message newMessage = RabbitMqCreateMsg.CreateMsg(msg, "10000");
                 rabbitTemplate.convertAndSend("pay.message.exchange", "payMessage", newMessage);
                 log.info("日志->>>RabbitMqListener->>>重新发送消息 : [{}]", msg);
             }

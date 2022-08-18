@@ -54,7 +54,7 @@ public class TradePayOrderServiceImpl implements TradePayOrderService {
             log.info("日志->>>service:execute->>>insert插入成功:{}", isSuccess);
 
             //创建消息对象 uuid:发送的消息,消息过期时间
-            Message message = RabbitMqCreateMsg.CreateMsg(uuid, "20000");
+            Message message = RabbitMqCreateMsg.CreateMsg(uuid, "10000");
             try {
                 //发送消息 交换机,路由键,消息
                 rabbitTemplate.convertAndSend("pay.message.exchange", "payMessage", message);
