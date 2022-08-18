@@ -26,11 +26,11 @@ public class MsApiScenarioResultMsgController {
      * @return 返回一个字符串
      */
     @GetMapping("/api/sendResultMsg")
-    public CommonResult<String> sendResultMsg(@RequestParam String scenarioId) {
-        log.info("日志->>>controller:payOrderQuery->>>接口接收到的参数:{}", scenarioId);
+    public CommonResult<String> sendResultMsg(@RequestParam String scenarioId, @RequestParam String robotToken) {
+        log.info("日志->>>controller:payOrderQuery->>>接口接收到的参数:{},{}", scenarioId, robotToken);
         try {
             //调用service层异步任务后,不用等待;接口立即返回
-            msApiScenarioResultMsgService.queryResultAsync(scenarioId);
+            msApiScenarioResultMsgService.queryResultAsync(scenarioId, robotToken);
             return CommonResult.success("success");
         } catch (Exception e) {
             log.error("日志->>>controller:payOrderQuery->>>调用service失败:{}", e.getMessage());

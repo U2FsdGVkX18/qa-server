@@ -12,5 +12,5 @@ public interface MsApiScenarioResultMsgService {
      * @param scenarioId 场景ID
      */
     @Async
-    void queryResultAsync(String scenarioId);
+    void queryResultAsync(String scenarioId, String robotToken);
 }

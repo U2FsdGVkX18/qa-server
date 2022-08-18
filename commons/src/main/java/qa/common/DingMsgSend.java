@@ -19,14 +19,14 @@ public class DingMsgSend {
      * 测试团队群-接口自动化机器人-webhook地址
      */
     private static final String robotWebhook =
-            "https://oapi.dingtalk.com/robot/send?access_token=5cf5de5a92793336d212fdada7937a1cf942efc3c46553c5b0efcc383b238396";
+            "https://oapi.dingtalk.com/robot/send?access_token=";
 
     /**
      * 发送消息主体
      *
      * @param msgMap 消息主体
      */
-    public static void sendMsg(Map<String, Object> msgMap) {
+    public static void sendMsg(Map<String, Object> msgMap, String robotToken) {
         //新建请求对象
         OapiRobotSendRequest request = new OapiRobotSendRequest();
         //指定发送消息类型
@@ -46,7 +46,7 @@ public class DingMsgSend {
         //at.setAtUserIds(Arrays.asList("109929", "32099"));
         request.setAt(at);
         try {
-            OapiRobotSendResponse response = createClient().execute(request);
+            OapiRobotSendResponse response = createClient(robotToken).execute(request);
             log.info("日志->>>DingMsgSend:sendMsg->>>成功:{}", response.isSuccess());
         } catch (ApiException e) {
             log.error("日志->>>DingMsgSend:sendMsg->>>失败:{}", e.getMessage());
@@ -97,7 +97,7 @@ public class DingMsgSend {
      *
      * @return DingTalkClient
      */
-    private static DingTalkClient createClient() {
-        return new DefaultDingTalkClient(robotWebhook);
+    private static DingTalkClient createClient(String robotToken) {
+        return new DefaultDingTalkClient(robotWebhook + robotToken);
     }
 }

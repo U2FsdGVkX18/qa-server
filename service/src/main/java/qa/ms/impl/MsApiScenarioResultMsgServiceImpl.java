@@ -22,19 +22,19 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
     private MsApiScenarioResultMsgMapper msApiScenarioResultMsgMapper;
 
     @Override
-    public void queryResultAsync(String scenarioId) {
+    public void queryResultAsync(String scenarioId, String robotToken) {
         try {
             //线程休眠10000ms
             Thread.sleep(10000);
             //然后去执行数据查询获取场景任务执行结果
-            queryResult(scenarioId);
+            queryResult(scenarioId, robotToken);
         } catch (InterruptedException e) {
             log.error("日志->>>service:queryResultAsync->>>{}", e.getMessage());
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void queryResult(String scenarioId) {
+    public void queryResult(String scenarioId, String robotToken) {
         MsApiScenario msApiScenario = msApiScenarioResultMsgMapper.selectByScenarioId(scenarioId);
         if (ObjectUtils.isEmpty(msApiScenario)) {
             log.info("日志->>>service:queryResult->>>查询结果为空,不发送消息:{}", msApiScenario);
@@ -66,7 +66,7 @@ public class MsApiScenarioResultMsgServiceImpl implements MsApiScenarioResultMsg
         log.info("日志->>>service:queryResult->>>合并结果:{}", newMap);
 
         //将新Map对象(消息集合)交给DingMsgSend处理并发送
-        DingMsgSend.sendMsg(newMap);
+        DingMsgSend.sendMsg(newMap, robotToken);
     }
 
     /**
