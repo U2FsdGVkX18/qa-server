@@ -1,42 +1,5 @@
 server:
   port: 9000 #本服务启动端口
-logging:
-  level:
-    root: info #打印日志等级
-  file:
-    name: ./logs/server.log
 spring:
-  application:
-    name: qa-server #应用名称
-  datasource:
-    druid: #druid开启监控配置
-      stat-view-servlet:
-        login-username: admin #登录用户名和密码
-        login-password: admin
-        reset-enable: false #是否开启重置监控数据
-        url-pattern: /druid/* #登录druid网页后缀
-        enabled: true #开启监控
-        allow: #添加IP白名单,不写就是所有都允许 deny:添加IP黑名单
-      web-stat-filter: #监控配置中的web监控
-        enabled: true #开启
-        url-pattern: /* #url
-  rabbitmq: #mq消息中间件 rabbitmq相关配置
-    host: 192.168.10.226
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
-    listener:
-      simple:
-        prefetch: 1 #消费者-消息预取机制,每次只能获取一条消息,处理完成后才能取下一条消息
-        acknowledge-mode: manual #消费者ack手动确认模式
-      direct:
-        acknowledge-mode: manual #消费者ack手动确认模式
-    publisher-confirm-type: correlated #生产者确认模式(确认消息是否发送到交换机) confirm 当生产者发送消息到交换机后成功或失败所处理的业务   #publisher-returns: true 生产者返回模式
-    publisher-returns: true #开启发送失败退回(确认消息是否发送到队列)
-    template:
-      mandatory: true #如果为true,发送失败的消息会被ReturnCallBack方法回调
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true   #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #MP日志打印
+  profiles:
+    active: prod

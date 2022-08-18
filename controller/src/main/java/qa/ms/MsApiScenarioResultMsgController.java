@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/ms")
 public class MsApiScenarioResultMsgController {
 
     @Resource
@@ -25,7 +25,7 @@ public class MsApiScenarioResultMsgController {
      * @param scenarioId 场景ID
      * @return 返回一个字符串
      */
-    @GetMapping("/sendResultMsg")
+    @GetMapping("/api/sendResultMsg")
     public CommonResult<String> sendResultMsg(@RequestParam String scenarioId) {
         log.info("日志->>>controller:payOrderQuery->>>接口接收到的参数:{}", scenarioId);
         try {
