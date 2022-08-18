@@ -24,7 +24,7 @@ public class MsApiScenarioReport implements Serializable {
 
     private String status;
 
-    private String user_id;
+    private String userId;
 
     private String triggerMode;
 
@@ -34,7 +34,7 @@ public class MsApiScenarioReport implements Serializable {
 
     private String scenarioId;
 
-    private String create_user;
+    private String createUser;
 
     private String actuator;
 

@@ -83,6 +83,7 @@ public class DingMsgSend {
                 "场景更新时间: " + msgMap.get("updateTime") + "\n" +
                 "\n" +
                 "任务名称: " + msgMap.get("reportname") + "\n" +
+                "任务调用方式: " + msgMap.get("triggerMode") + "\n" +
                 "任务开始时间: " + msgMap.get("reportcreateTime") + "\n" +
                 "任务结束时间: " + msgMap.get("endTime") + "\n" +
                 "任务通过率: " + msgMap.get("passRate") + "\n" +
