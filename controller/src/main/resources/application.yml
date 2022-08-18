@@ -21,7 +21,7 @@ spring:
         enabled: true #开启
         url-pattern: /* #url
   rabbitmq: #mq消息中间件 rabbitmq相关配置
-    host: 121.41.203.160
+    host: 192.168.10.226
     port: 5672
     username: guest
     password: guest
