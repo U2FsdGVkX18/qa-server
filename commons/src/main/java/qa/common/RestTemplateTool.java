@@ -3,12 +3,8 @@ package qa.common;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -53,9 +49,9 @@ public class RestTemplateTool {
         HttpEntity<JSONObject> requestEntity = new HttpEntity<>(params, getHeader());
         try {
             return getRestTemplate().getForEntity(url, String.class, requestEntity);
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             log.info("日志->>>RestTemplateTool:sendGetRequest->>>请求异常: [{}]", e.getMessage());
-            return null;
+            return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
         }
     }
 
@@ -70,7 +66,7 @@ public class RestTemplateTool {
         HttpEntity<JSONObject> requestEntity = new HttpEntity<>(params, getHeader());
         try {
             return getRestTemplate().postForEntity(url, requestEntity, JSONObject.class);
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             log.info("日志->>>RestTemplateTool:sendPostRequest->>>请求异常: [{}]", e.getMessage());
             return null;
         }

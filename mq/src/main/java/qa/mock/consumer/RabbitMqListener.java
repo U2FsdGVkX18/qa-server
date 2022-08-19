@@ -4,7 +4,6 @@ package qa.mock.consumer;
 import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -15,7 +14,6 @@ import qa.common.RestTemplateTool;
 import qa.mock.RabbitMqCreateMsg;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 /**
  * mq消费者
@@ -39,14 +37,15 @@ public class RabbitMqListener {
         String url = baseUrl + "?key=" + key + "&address=" + "五常街道" + "&output=JSON";
 
         try {
-            //做回调业务操作
             ResponseEntity<String> stringResponseEntity = restTemplateTool.sendGetRequest(url, new JSONObject());
+            log.info("日志->>>RabbitMqListener->>>三方接口返回数据:{}", stringResponseEntity);
+            //做回调业务操作
             //if满足条件则接收消息,业务操作成功并结束
-            log.info("日志->>>RabbitMqListener->>>三方接口返回数据:{}", stringResponseEntity.getBody());
-            if (ObjectUtils.isNotEmpty(stringResponseEntity)) {
+            if (stringResponseEntity.getStatusCodeValue() == 200) {
                 channel.basicAck(deliveryTag, true);
                 log.info("日志->>>RabbitMqListener->>>消费者确认接收到消息 : [{}]", msg);
-            } else {   //不满足条件则说明业务操作不通过,重新发送消息
+            } else {
+                //不满足条件则说明业务操作不通过,重新发送消息
                 //首先把当前消息拒绝
                 channel.basicReject(deliveryTag, false);
                 log.info("日志->>>RabbitMqListener->>>拒绝当前消息 : [{}]", msg);
@@ -55,7 +54,7 @@ public class RabbitMqListener {
                 rabbitTemplate.convertAndSend("pay.message.exchange", "payMessage", newMessage);
                 log.info("日志->>>RabbitMqListener->>>重新发送消息 : [{}]", msg);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("日志->>>RabbitMqListener->>>异常 : [{}]", e.getMessage());
         }
     }

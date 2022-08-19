@@ -2,4 +2,4 @@ server:
   port: 9000 #本服务启动端口
 spring:
   profiles:
-    active: prod
+    active: prod #发布使用prod,开发使用dev
