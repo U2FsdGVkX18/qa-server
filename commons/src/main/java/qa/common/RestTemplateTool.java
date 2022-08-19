@@ -68,7 +68,7 @@ public class RestTemplateTool {
             return getRestTemplate().postForEntity(url, requestEntity, JSONObject.class);
         } catch (Exception e) {
             log.info("日志->>>RestTemplateTool:sendPostRequest->>>请求异常: [{}]", e.getMessage());
-            return null;
+            return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
         }
     }
 }
