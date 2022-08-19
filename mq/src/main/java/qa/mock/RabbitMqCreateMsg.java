@@ -11,6 +11,13 @@ import java.nio.charset.StandardCharsets;
  */
 public class RabbitMqCreateMsg {
 
+    /**
+     * 创建消息主体
+     *
+     * @param msgBody        消息内容
+     * @param expirationTime 过期时间
+     * @return Message
+     */
     public static Message CreateMsg(String msgBody, String expirationTime) {
         return MessageBuilder
                 .withBody(msgBody.getBytes(StandardCharsets.UTF_8))

@@ -42,8 +42,8 @@ public class RabbitMqListener {
             //做回调业务操作
             ResponseEntity<String> stringResponseEntity = restTemplateTool.sendGetRequest(url, new JSONObject());
             //if满足条件则接收消息,业务操作成功并结束
+            log.info("日志->>>RabbitMqListener->>>三方接口返回数据:{}", stringResponseEntity.getBody());
             if (ObjectUtils.isNotEmpty(stringResponseEntity)) {
-                System.out.println(stringResponseEntity.getBody());
                 channel.basicAck(deliveryTag, true);
                 log.info("日志->>>RabbitMqListener->>>消费者确认接收到消息 : [{}]", msg);
             } else {   //不满足条件则说明业务操作不通过,重新发送消息
