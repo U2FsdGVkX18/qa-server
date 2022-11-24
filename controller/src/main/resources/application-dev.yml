@@ -16,7 +16,7 @@ spring:
       web-stat-filter: #监控配置中的web监控
         enabled: true #开启
         url-pattern: /* #url
-  rabbitmq: #mq消息中间件 rabbitmq相关配置
+  rabbitmq: #mq消息中间件 rabbitmq相关配置(本地需要安装rabbitmq,mac可以用docker安装)
     host: 127.0.0.1
     port: 5672
     username: guest

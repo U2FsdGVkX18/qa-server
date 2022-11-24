@@ -32,10 +32,9 @@ public class DingMsgSend {
         //指定发送消息类型
         request.setMsgtype("text");
         OapiRobotSendRequest.Text text = new OapiRobotSendRequest.Text();
-        //获取消息体
-        String msg = msgBody(msgMap);
         //将消息体放入content
-        text.setContent(msg);
+        text.setContent(msgBody(msgMap));
+        //将text放入请求对象中
         request.setText(text);
         //设置消息在群中需要@对象
         OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
@@ -54,20 +53,17 @@ public class DingMsgSend {
     }
 
     /**
-     * 消息主体构建-格式化
+     * 消息主体构建+格式化
      *
      * @param msgMap 消息集合
      * @return String
      */
     private static String msgBody(Map<String, Object> msgMap) {
-        String createTime = TimeConvertTool.getDateTime13((Long) msgMap.get("createTime"));
-        String updateTime = TimeConvertTool.getDateTime13((Long) msgMap.get("updateTime"));
-        String reportcreateTime = TimeConvertTool.getDateTime13((Long) msgMap.get("reportcreateTime"));
-        String endTime = TimeConvertTool.getDateTime13((Long) msgMap.get("endTime"));
-        msgMap.put("createTime", createTime);
-        msgMap.put("updateTime", updateTime);
-        msgMap.put("reportcreateTime", reportcreateTime);
-        msgMap.put("endTime", endTime);
+        //消息发送出去时间展示不能是时间戳格式的,这里进行时间格式换,时间戳->日期时间型
+        msgMap.put("createTime", TimeConvertTool.getDateTime13((Long) msgMap.get("createTime")));
+        msgMap.put("updateTime", TimeConvertTool.getDateTime13((Long) msgMap.get("updateTime")));
+        msgMap.put("reportcreateTime", TimeConvertTool.getDateTime13((Long) msgMap.get("reportcreateTime")));
+        msgMap.put("endTime", TimeConvertTool.getDateTime13((Long) msgMap.get("endTime")));
 
         return "消息通知:\n" +
                 "任务执行结果:\n" +
@@ -93,7 +89,7 @@ public class DingMsgSend {
     }
 
     /**
-     * 新建钉钉消息客户端
+     * 新建钉钉消息客户端对象
      *
      * @return DingTalkClient
      */

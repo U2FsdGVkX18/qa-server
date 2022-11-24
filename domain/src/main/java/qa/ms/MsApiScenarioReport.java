@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Data
 @TableName(value = "api_scenario_report")
 public class MsApiScenarioReport implements Serializable {
+
     private static final long serialVersionUID = 6299246787997746111L;
 
     private String id;

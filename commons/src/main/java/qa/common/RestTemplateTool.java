@@ -22,7 +22,7 @@ public class RestTemplateTool {
         RestTemplate restTemplate = new RestTemplate();
         SimpleClientHttpRequestFactory clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
         clientHttpRequestFactory.setConnectTimeout(1000);
-        clientHttpRequestFactory.setReadTimeout(40);
+        clientHttpRequestFactory.setReadTimeout(1000);
         restTemplate.setRequestFactory(clientHttpRequestFactory);
         return restTemplate;
     }
@@ -35,6 +35,7 @@ public class RestTemplateTool {
     private HttpHeaders getHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "cchi48mv9mc753cgsrug");
         return headers;
     }
 

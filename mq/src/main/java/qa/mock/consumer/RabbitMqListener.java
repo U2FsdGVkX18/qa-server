@@ -25,6 +25,13 @@ public class RabbitMqListener {
     @Resource
     private RabbitTemplate rabbitTemplate;
 
+    /**
+     * 监听 pay.message.dlx.queue 队列
+     *
+     * @param message message对象
+     * @param channel 管道
+     * @param msg     消息
+     */
     @RabbitHandler
     @RabbitListener(queues = "pay.message.dlx.queue")
     public void listenPayMessageDlxQueue(Message message, Channel channel, String msg) {

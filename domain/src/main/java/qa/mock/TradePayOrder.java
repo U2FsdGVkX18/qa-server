@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Data
 @TableName(value = "trade_pay_order")
 public class TradePayOrder implements Serializable {
+
     private static final long serialVersionUID = 7823214269868843699L;
     /**
      * 主键ID

@@ -24,7 +24,11 @@ import javax.sql.DataSource;
  * 主要用来查询MeterSphere平台接口场景执行结果数据
  */
 @Configuration
-@MapperScan(basePackages = {"qa.mapper.ms"}, sqlSessionTemplateRef = "msSqlSessionTemplate", sqlSessionFactoryRef = "msSqlSessionFactory")
+@MapperScan(
+        basePackages = {"qa.mapper.ms"},
+        sqlSessionTemplateRef = "msSqlSessionTemplate",
+        sqlSessionFactoryRef = "msSqlSessionFactory"
+)
 public class MsMybatisDataSourceConfig {
 
     /**
