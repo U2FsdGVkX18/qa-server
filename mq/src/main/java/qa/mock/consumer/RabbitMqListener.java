@@ -1,19 +1,21 @@
 package qa.mock.consumer;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import qa.common.RestTemplateTool;
 import qa.mock.RabbitMqCreateMsg;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 
 /**
  * mq消费者
@@ -44,7 +46,7 @@ public class RabbitMqListener {
         String url = baseUrl + "?key=" + key + "&address=" + "五常街道" + "&output=JSON";
 
         try {
-            ResponseEntity<String> stringResponseEntity = restTemplateTool.sendGetRequest(url, new JSONObject());
+            ResponseEntity<String> stringResponseEntity = restTemplateTool.sendGetRequest(url, getHeader(), new HashMap<>());
             log.info("日志->>>RabbitMqListener->>>三方接口返回数据:{}", stringResponseEntity);
             //做回调业务操作
             //if满足条件则接收消息,业务操作成功并结束
@@ -64,5 +66,16 @@ public class RabbitMqListener {
         } catch (Exception e) {
             log.error("日志->>>RabbitMqListener->>>异常 : [{}]", e.getMessage());
         }
+    }
+
+    /**
+     * 初始化header头部信息
+     *
+     * @return Headers
+     */
+    private HttpHeaders getHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
     }
 }

@@ -67,6 +67,7 @@ allprojects {
             //log4j包冲突,排除掉
             exclude group: "log4j", module: "log4j"
         }
+        implementation 'com.jcraft:jsch:0.1.55'
     }
 }
 
