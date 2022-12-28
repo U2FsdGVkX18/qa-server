@@ -1,6 +1,6 @@
 logging:
   level:
-    root: debug #打印日志等级
+    root: info #打印日志等级
 spring:
   application:
     name: qa-server #应用名称

@@ -40,12 +40,10 @@ public class AIPaintServiceImpl implements AIPaintService {
         log.info("日志->>>service:execute->>>获取机器信息成功!机器信息:{}", machineInfo);
 
         //连接机器获取session
-        Session session = getSession(machineInfo);
+//        Session session = getSession(machineInfo);
         //执行命令,返回结果
-        String command1 = "nvidia-smi --query-gpu=timestamp,memory.total,memory.free,memory.used --format=csv,noheader,nounits";
-        StringBuffer returnMsg = getReturnMsg(session, command1);
-        
-        System.out.println(returnMsg);
+//        String command1 = "nvidia-smi --query-gpu=timestamp,memory.total,memory.free,memory.used --format=csv,noheader,nounits";
+//        StringBuffer returnMsg = getReturnMsg(session, command1);
 
         return machineInfo;
     }
